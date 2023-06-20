@@ -31,6 +31,18 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const DESCRIPTIONS = [
+  'Речка',
+  'Тусовка',
+  'Resident Evil 4 (2023)',
+  '#Заруба',
+  'Чаевничаем',
+  'Дорога дорога',
+  'Карты деньги два кота',
+  'Vladimir the poker',
+  'Джонни Д'
+];
+
 function getRandomPositiveInteger (a, b) {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -53,19 +65,17 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-const randomID = createRandomIdFromRangeGenerator(1, 25);
+const PostsQuantity = 25;
+const randomCommentID = createRandomIdFromRangeGenerator(1, PostsQuantity);
+const randomPostID = createRandomIdFromRangeGenerator(1, PostsQuantity);
 
-const createComment = () => {
-  const randomNameIndex = getRandomPositiveInteger(0, NAMES.length - 1);
-  const randomMessageIndex = getRandomPositiveInteger(0, MESSAGES.length - 1);
-  const randomAvatarNumber = getRandomPositiveInteger(1, 6);
-  return {
-    id: randomID(), //любое число. Идентификаторы не должны повторяться.
-    avatar: `img/avatar-${randomAvatarNumber}`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
-    message: MESSAGES[randomMessageIndex], //вам необходимо взять одно или два случайных предложения из представленных
-    name: NAMES[randomNameIndex] // берем из массива имен
-  };
-};
+const createComment = () =>
+  ({
+    id: randomCommentID(), //любое число. Идентификаторы не должны повторяться.
+    avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
+    message: MESSAGES[getRandomPositiveInteger(0, MESSAGES.length - 1)], //вам необходимо взять одно или два случайных предложения из представленных
+    name: NAMES[getRandomPositiveInteger(0, NAMES.length - 1)] // берем из массива имен
+  });
 
 const createCommentsArray = (number) => {
   const COMMENTS = [];
@@ -74,3 +84,21 @@ const createCommentsArray = (number) => {
   }
   return COMMENTS;
 };
+
+const createPost = () => ({
+  id: randomPostID(),
+  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}`,
+  description: DESCRIPTIONS[getRandomPositiveInteger(0, MESSAGES.length - 1)],
+  likes: getRandomPositiveInteger(15, 200),
+  comments: createCommentsArray(getRandomPositiveInteger(0, 30))
+});
+
+const createPostsArray = (number) => {
+  const POSTS = [];
+  for (let i = 0; i < number; i++) {
+    POSTS.push(createPost());
+  }
+  return POSTS;
+};
+
+// console.log(createPostsArray(25));
