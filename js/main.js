@@ -101,4 +101,4 @@ const createPostsArray = (number) => {
   return POSTS;
 };
 
-// console.log(createPostsArray(25));
+createPostsArray(25);
