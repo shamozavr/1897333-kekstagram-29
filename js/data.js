@@ -46,7 +46,7 @@ const DESCRIPTIONS = [
   'Джонни Д'
 ];
 
-const PostsQuantity = 25;
+const PostsQuantity = 26;
 const randomCommentID = createRandomIdFromRangeGenerator(1, PostsQuantity);
 const randomPostID = createRandomIdFromRangeGenerator(1, PostsQuantity);
 
@@ -68,7 +68,7 @@ const createCommentsArray = (number) => {
 
 const createPost = () => ({
   id: randomPostID(),
-  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}`,
+  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}.jpg`,
   description: DESCRIPTIONS[getRandomPositiveInteger(0, MESSAGES.length - 1)],
   likes: getRandomPositiveInteger(15, 200),
   comments: createCommentsArray(getRandomPositiveInteger(0, 30))
@@ -83,3 +83,4 @@ const createPostsArray = (number) => {
 };
 export {createPost};
 export {createPostsArray};
+export {PostsQuantity};
