@@ -1,2 +1,2 @@
 import {createPostsArray} from './data.js';
-createPostsArray(25);
+console.log(createPostsArray(25));

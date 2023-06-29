@@ -1,5 +1,5 @@
-import {getRandomPositiveInteger} from './util.js';
-import {createRandomIdFromRangeGenerator} from './util.js';
+import {getRandomPositiveInteger} from './utils.js';
+import {createRandomIdFromRangeGenerator} from './utils.js';
 
 const NAMES = [
   'Александр',
@@ -81,5 +81,5 @@ const createPostsArray = (number) => {
   }
   return POSTS;
 };
-
+export {createPost};
 export {createPostsArray};
