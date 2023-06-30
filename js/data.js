@@ -46,7 +46,7 @@ const DESCRIPTIONS = [
   'Джонни Д'
 ];
 
-const PostsQuantity = 26;
+const PostsQuantity = 25;
 const randomCommentID = createRandomIdFromRangeGenerator(1, PostsQuantity);
 const randomPostID = createRandomIdFromRangeGenerator(1, PostsQuantity);
 

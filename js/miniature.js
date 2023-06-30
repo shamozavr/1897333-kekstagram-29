@@ -5,6 +5,7 @@ const pictureList = document.querySelector('.pictures');
 const newPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const postsArray = createPostsArray(PostsQuantity);
+const PicturesFragment = document.createDocumentFragment();
 
 for (let i = 0; i < postsArray.length; i++) {
   const picture = newPictureTemplate.cloneNode(true);
@@ -18,5 +19,7 @@ for (let i = 0; i < postsArray.length; i++) {
   pictureLikes.textContent = postsArray[i].likes;
   pictureComments.textContent = postsArray[i].comments.length - 1;
 
-  pictureList.appendChild(picture);
+  PicturesFragment.appendChild(picture);
 }
+
+pictureList.appendChild(PicturesFragment);
