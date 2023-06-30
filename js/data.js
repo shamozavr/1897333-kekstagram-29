@@ -1,5 +1,5 @@
-import {getRandomPositiveInteger} from './util.js';
-import {createRandomIdFromRangeGenerator} from './util.js';
+import {getRandomPositiveInteger} from './utils.js';
+import {createRandomIdFromRangeGenerator} from './utils.js';
 
 const NAMES = [
   'Александр',
@@ -68,7 +68,7 @@ const createCommentsArray = (number) => {
 
 const createPost = () => ({
   id: randomPostID(),
-  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}`,
+  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}.jpg`,
   description: DESCRIPTIONS[getRandomPositiveInteger(0, MESSAGES.length - 1)],
   likes: getRandomPositiveInteger(15, 200),
   comments: createCommentsArray(getRandomPositiveInteger(0, 30))
@@ -81,5 +81,6 @@ const createPostsArray = (number) => {
   }
   return POSTS;
 };
-
+export {createPost};
 export {createPostsArray};
+export {PostsQuantity};
