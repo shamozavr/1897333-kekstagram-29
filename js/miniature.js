@@ -1,28 +1,50 @@
 import {createPostsArray} from './data.js';
-import {PostsQuantity} from './data.js';
+import {POSTSQUANTITY} from './data.js';
+import {showBigPicture} from './fullpicture.js';
 
 const pictureList = document.querySelector('.pictures');
 const newPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const postsArray = createPostsArray(PostsQuantity);
+const postsArray = createPostsArray(POSTSQUANTITY);
 const PicturesFragment = document.createDocumentFragment();
 
-for (let i = 0; i < postsArray.length; i++) {
-  const picture = newPictureTemplate.cloneNode(true);
+const addMiniatureFN = (array) => {
+  array.forEach(({url, description, likes, comments}) => {
+    const picture = newPictureTemplate.cloneNode(true);
 
-  const pictureImg = picture.querySelector('.picture__img');
-  const pictureLikes = picture.querySelector('.picture__likes');
-  const pictureComments = picture.querySelector('.picture__comments');
+    picture.querySelector('.picture__img').src = url;
+    picture.querySelector('.picture__img').alt = description;
+    picture.querySelector('.picture__likes').textContent = likes;
+    picture.querySelector('.picture__comments').textContent = comments.length;
 
-  pictureImg.src = postsArray[i].url;
-  pictureImg.alt = postsArray[i].description;
-  pictureLikes.textContent = postsArray[i].likes;
-  pictureComments.textContent = postsArray[i].comments.length - 1;
+    PicturesFragment.append(picture);
 
-  PicturesFragment.appendChild(picture);
-}
+    picture.addEventListener('click', () => {
+      showBigPicture(picture);
+    });
+  });
+  pictureList.append(PicturesFragment);
+};
 
-pictureList.appendChild(PicturesFragment);
+export {addMiniatureFN};
+export {postsArray};
+
+// for (let i = 0; i < postsArray.length; i++) {
+//   const picture = newPictureTemplate.cloneNode(true);
+
+//   const pictureImg = picture.querySelector('.picture__img');
+//   const pictureLikes = picture.querySelector('.picture__likes');
+//   const pictureComments = picture.querySelector('.picture__comments');
+
+//   pictureImg.src = postsArray[i].url;
+//   pictureImg.alt = postsArray[i].description;
+//   pictureLikes.textContent = postsArray[i].likes;
+//   pictureComments.textContent = postsArray[i].comments.length - 1;
+
+//   PicturesFragment.appendChild(picture);
+// }
+
+// pictureList.appendChild(PicturesFragment);
 
 
 /* const container = document.querySelector('.pictures');
