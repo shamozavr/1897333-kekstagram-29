@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+// import {createCommentFN} from './comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('img');
