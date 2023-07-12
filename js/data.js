@@ -57,7 +57,7 @@ const randomPostID = createRandomIdFromRangeGenerator(1, POSTSQUANTITY);
 const createComment = () =>
   ({
     id: randomCommentID(), //любое число. Идентификаторы не должны повторяться.
-    avatar: `img/avatar-${getRandomPositiveInteger(1, AVATAR_COUNT)}`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
+    avatar: `img/avatar-${getRandomPositiveInteger(1, AVATAR_COUNT)}.svg`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
     message: MESSAGES[getRandomPositiveInteger(0, MESSAGES.length - 1)], //вам необходимо взять одно или два случайных предложения из представленных
     name: NAMES[getRandomPositiveInteger(0, NAMES.length - 1)] // берем из массива имен
   });

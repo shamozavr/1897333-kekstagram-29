@@ -20,7 +20,7 @@ const renderComments = (arrayOfComments) => {//arrayOfComments, каждый о�
     const comment = newCommentTemplate.cloneNode(true);//Копируем шаблон для наполнения на каждой итерации forEach
     const commentImg = comment.querySelector('img');//находим аватарку комментатора
 
-    commentImg.src = `${avatar}.svg`;
+    commentImg.src = avatar;
     commentImg.alt = name;
     commentImg.width = '35';
     commentImg.height = '35';
