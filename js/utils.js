@@ -10,7 +10,7 @@ function createRandomIdFromRangeGenerator (min, max) {
   return function () {
     let currentValue = getRandomPositiveInteger(min, max);
     if (previousValues.length >= (max - min + 1)) {
-      return 'превышено максимальное количество генераций';
+      return null;
     }
     while (previousValues.includes(currentValue)) {
       currentValue = getRandomPositiveInteger(min, max);
@@ -20,4 +20,6 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-export {getRandomPositiveInteger, createRandomIdFromRangeGenerator};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, isEscapeKey};

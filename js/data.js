@@ -46,14 +46,18 @@ const DESCRIPTIONS = [
   'Джонни Д'
 ];
 
-const PostsQuantity = 25;
-const randomCommentID = createRandomIdFromRangeGenerator(1, PostsQuantity);
-const randomPostID = createRandomIdFromRangeGenerator(1, PostsQuantity);
+const POSTSQUANTITY = 25;
+const AVATAR_COUNT = 6;
+const LIKE_MIN = 15;
+const LIKE_MAX = 200;
+const COMMENT_COUNT = 30;
+const randomCommentID = createRandomIdFromRangeGenerator(1, POSTSQUANTITY);
+const randomPostID = createRandomIdFromRangeGenerator(1, POSTSQUANTITY);
 
 const createComment = () =>
   ({
     id: randomCommentID(), //любое число. Идентификаторы не должны повторяться.
-    avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
+    avatar: `img/avatar-${getRandomPositiveInteger(1, AVATAR_COUNT)}.svg`, //это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
     message: MESSAGES[getRandomPositiveInteger(0, MESSAGES.length - 1)], //вам необходимо взять одно или два случайных предложения из представленных
     name: NAMES[getRandomPositiveInteger(0, NAMES.length - 1)] // берем из массива имен
   });
@@ -68,10 +72,10 @@ const createCommentsArray = (number) => {
 
 const createPost = () => ({
   id: randomPostID(),
-  url: `photos/${getRandomPositiveInteger(1, PostsQuantity)}.jpg`,
+  url: `photos/${getRandomPositiveInteger(1, POSTSQUANTITY)}.jpg`,
   description: DESCRIPTIONS[getRandomPositiveInteger(0, MESSAGES.length - 1)],
-  likes: getRandomPositiveInteger(15, 200),
-  comments: createCommentsArray(getRandomPositiveInteger(0, 30))
+  likes: getRandomPositiveInteger(LIKE_MIN, LIKE_MAX),
+  comments: createCommentsArray(getRandomPositiveInteger(0, COMMENT_COUNT))
 });
 
 const createPostsArray = (number) => {
@@ -81,6 +85,7 @@ const createPostsArray = (number) => {
   }
   return POSTS;
 };
+
 export {createPost};
 export {createPostsArray};
-export {PostsQuantity};
+export {POSTSQUANTITY};
