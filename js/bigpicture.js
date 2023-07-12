@@ -1,4 +1,4 @@
-// import {isEscapeKey} from './util.js';
+import {isEscapeKey} from './utils.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок с полноразмерным изображением
 const bigPictureImgBlock = bigPicture.querySelector('.big-picture__img'); //изображение блока bigPicture
@@ -56,12 +56,12 @@ const openBigPicture = (element) => {
   });
 };
 
-// document.addEventListener('keydown', (evt) => {
-//   if (isEscapeKey(evt)) {
-//     evt.preventDefault();
-//     bigPicture.classList.add('hidden');
-//     document.documentElement.classList.remove('modal-open');
-//   }
-// });
+document.addEventListener('keydown', (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    bigPicture.classList.add('hidden');
+    document.documentElement.classList.remove('modal-open');
+  }
+});
 
 export {openBigPicture};
