@@ -1,6 +1,6 @@
 import {createPostsArray} from './data.js';
 import {POSTSQUANTITY} from './data.js';
-import {showBigPicture} from './fullpicture.js';
+import {openBigPicture} from './bigpicture.js';
 
 const pictureList = document.querySelector('.pictures');
 const newPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -12,14 +12,15 @@ const addMiniatureFN = (array) => {
   array.forEach(({url, description, likes, comments}) => {
     const picture = newPictureTemplate.cloneNode(true);
 
-    picture.addEventListener('click', () => {
-      showBigPicture({url, description, likes, comments});
-    });
-
     picture.querySelector('.picture__img').src = url;
     picture.querySelector('.picture__img').alt = description;
     picture.querySelector('.picture__likes').textContent = likes;
     picture.querySelector('.picture__comments').textContent = comments.length;
+
+    picture.addEventListener('click', () => {
+      openBigPicture({url, description, likes, comments});
+    });
+
     PicturesFragment.append(picture);
   });
   pictureList.append(PicturesFragment);
