@@ -54,14 +54,14 @@ const openBigPicture = (element) => {
     bigPicture.classList.add('hidden');//скрывает BigPicture добавив класс hidden
     document.documentElement.classList.remove('modal-open');//убирает класс modal-open на <body>
   });
-};
 
-document.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    bigPicture.classList.add('hidden');
-    document.documentElement.classList.remove('modal-open');
-  }
-});
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      bigPicture.classList.add('hidden');
+      document.documentElement.classList.remove('modal-open');
+    }
+  });
+};
 
 export {openBigPicture};
