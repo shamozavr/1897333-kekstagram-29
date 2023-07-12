@@ -15,6 +15,7 @@ const CommentsFragment = document.createDocumentFragment();//Фрагмент д
 
 //функция отрисовки комментариев которая принимает в себя массив объектов
 const renderComments = (arrayOfComments) => {//arrayOfComments, каждый объект которого имеет ключи с именами avatar, message, name
+  commentsList.innerHTML = '';
   arrayOfComments.forEach(({avatar, message, name}) => {//при помощи деструктуризации передаем их в качетсве аргументов в forEach
     const comment = newCommentTemplate.cloneNode(true);//Копируем шаблон для наполнения на каждой итерации forEach
     const commentImg = comment.querySelector('img');//находим аватарку комментатора
