@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utils.js';
-import { renderComments, showComments } from './comments.js';
+import { renderComments, showComments, commentsShown } from './comments.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок с полноразмерным изображением
 const bigPictureImgBlock = bigPicture.querySelector('.big-picture__img'); //изображение блока bigPicture
@@ -41,9 +41,9 @@ const renderBigPicture = ({url, likes, comments}) => {
   bigPictureImg.src = url;
   bigPictureLikes.textContent = likes;
   bigPictureCommentsCount.textContent = comments.length;
-  showComments(renderComments(comments));
+  showComments(renderComments(comments), commentsShown);
   commentsLoader.addEventListener ('click', () => {
-    showComments(renderComments(comments));
+    showComments(renderComments(comments), commentsShown);
   });
 };
 

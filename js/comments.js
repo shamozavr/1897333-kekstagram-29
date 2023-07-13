@@ -31,11 +31,6 @@ const showComments = (renderedComments, slicecount) => {
   SocialCommentsCount.textContent = `${slicecount} из`;
 
   commentsShown += COMMENTS_PER_PORTION;
-
-  // if (renderedComments.length <= slicedArray.length) {
-  //   commentsLoader.classList.add('hidden');
-  // }
-  return slicedArray;
 };
 
-export {renderComments, showComments};
+export {renderComments, showComments, commentsShown};
