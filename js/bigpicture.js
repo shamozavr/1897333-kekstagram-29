@@ -1,50 +1,27 @@
 import {isEscapeKey} from './utils.js';
-import { renderComments, showComments, commentsShown } from './comments.js';
+import { renderComments, showComments, commentsShown, commentsList } from './comments.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок с полноразмерным изображением
 const bigPictureImgBlock = bigPicture.querySelector('.big-picture__img'); //изображение блока bigPicture
 const bigPictureImg = bigPictureImgBlock.querySelector('img'); //изображение блока bigPicture
 const bigPictureLikes = bigPicture.querySelector('.likes-count'); //Количество лайков likes
-const bigPictureCommentsCount = bigPicture.querySelector('.comments-count'); //Общее количество комментариев comments
 const commentsLoader = document.querySelector('.comments-loader'); //кнопка загрузки комментариев
 const bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel'); //кнопка закрытия модалки
 
-// const commentsList = document.querySelector('.social__comments');//Список комментариев <ul>
-// const newCommentTemplate = document.querySelector('.social__comment');//шаблон комментария для наполнения
-// const CommentsFragment = document.createDocumentFragment();//Фрагмент для наполнения и дальнейше вставки
-
-
-//функция отрисовки комментариев которая принимает в себя массив объектов
-// const renderComments = (arrayOfComments) => {//arrayOfComments, каждый объект которого имеет ключи с именами avatar, message, name
-//   commentsList.innerHTML = '';
-
-//   bigPictureCommentsCount.textContent = arrayOfComments.length;
-
-//   slicedArray.forEach(({avatar, message, name}) => {//при помощи деструктуризации передаем их в качетсве аргументов в forEach
-//     const comment = newCommentTemplate.cloneNode(true);//Копируем шаблон для наполнения на каждой итерации forEach
-//     const commentImg = comment.querySelector('img');//находим аватарку комментатора
-
-//     commentImg.src = avatar;
-//     commentImg.alt = name;
-//     commentImg.width = '35';
-//     commentImg.height = '35';
-
-//     comment.querySelector('.social__text').textContent = message;
-
-//     CommentsFragment.append(comment);//запихиваем каждый шаблон в фрагмент на каждой итерации
-//   });
-//   commentsList.append(CommentsFragment);//запихиваем фрагмент с собранными шаблонами в список <ul> в верстке
-// };
+const bigPictureCommentsCount = bigPicture.querySelector('.comments-count'); //Общее количество комментариев comments
+const SocialCommentsCount = document.querySelector('.social__comment-count'); //Показанное количество комментариев comments
 
 //отрисовка большого изображения, принимает в себя некий объект у которого есть ключи с именами url, likes, comments
 const renderBigPicture = ({url, likes, comments}) => {
   bigPictureImg.src = url;
   bigPictureLikes.textContent = likes;
   bigPictureCommentsCount.textContent = comments.length;
-  showComments(renderComments(comments), commentsShown);
+  renderComments(showComments(comments, commentsShown));
   commentsLoader.addEventListener ('click', () => {
-    showComments(renderComments(comments), commentsShown);
+    renderComments(showComments(comments, commentsShown));
+    SocialCommentsCount.textContent = `${Array.from(commentsList.children).length} из ${bigPictureCommentsCount.textContent}`;
   });
+  SocialCommentsCount.textContent = `${Array.from(commentsList.children).length} из ${bigPictureCommentsCount.textContent}`;
 };
 
 //функция openBigPicture, которая предназанчена для того чтобы:

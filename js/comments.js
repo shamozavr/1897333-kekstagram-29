@@ -1,7 +1,6 @@
 const COMMENTS_PER_PORTION = 5;
 let commentsShown = 5;
 
-const SocialCommentsCount = document.querySelector('.social__comment-count'); //Показанное количество комментариев comments
 
 const commentsList = document.querySelector('.social__comments');//Список комментариев <ul>
 const newCommentTemplate = document.querySelector('.social__comment');//шаблон комментария для наполнения
@@ -26,11 +25,11 @@ const renderComments = (arrayOfComments) => {//arrayOfComments, каждый о�
   commentsList.append(CommentsFragment);//запихиваем фрагмент с собранными шаблонами в список <ul> в верстке
 };
 
-const showComments = (renderedComments, slicecount) => {
-  const slicedArray = renderedComments.slice(0, slicecount);
-  SocialCommentsCount.textContent = `${slicecount} из`;
+const showComments = (comments, slicecount) => {
+  const slicedArray = comments.slice(0, slicecount);
 
   commentsShown += COMMENTS_PER_PORTION;
+  return slicedArray;
 };
 
-export {renderComments, showComments, commentsShown};
+export {renderComments, showComments, commentsShown, commentsList};
