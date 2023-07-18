@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+import { scaleReset } from './scale.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок с полноразмерным изображением
 const bigPictureImgBlock = bigPicture.querySelector('.big-picture__img'); //изображение блока bigPicture
@@ -69,6 +70,7 @@ const openBigPicture = (element) => {
     bigPicture.classList.add('hidden');//скрывает BigPicture добавив класс hidden
     document.documentElement.classList.remove('modal-open');//убирает класс modal-open на <body>
     // commentsShown = 5;
+    scaleReset();
   });
   //пусть при открытом состоянии при ниажатии на ESC окно закрывается
   document.addEventListener('keydown', (evt) => {
@@ -77,6 +79,7 @@ const openBigPicture = (element) => {
       bigPicture.classList.add('hidden');
       document.documentElement.classList.remove('modal-open');
       // commentsShown = 5;
+      scaleReset();
     }
   });
 };
