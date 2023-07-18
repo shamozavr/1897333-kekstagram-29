@@ -7,7 +7,6 @@ scaleSmallerButton.onclick = () => {
   if (Number(scaleValue.value.replace(/%/, '')) > 25) {
     scaleValue.value = `${Number(scaleValue.value.replace(/% ?/, '')) - 25 }%`;
     imgUploadPreview.style.transform = `scale(${Number(scaleValue.value.replace(/%/, ''))}%)`;
-    console.log(Number(scaleValue.value.replace(/%/, '')) / 100);
   }
 };
 
@@ -15,7 +14,6 @@ scaleBiggerButton.onclick = () => {
   if (Number(scaleValue.value.replace(/%/, '')) < 100) {
     scaleValue.value = `${Number(scaleValue.value.replace(/% ?/, '')) + 25 }%`;
     imgUploadPreview.style.transform = `scale(${Number(scaleValue.value.replace(/%/, ''))}%)`;
-    console.log(Number(scaleValue.value.replace(/%/, '')) / 100);
   }
 };
 
