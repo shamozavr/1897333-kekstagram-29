@@ -13,11 +13,7 @@ const textDescription = document.querySelector('.text__description'); //Поле
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
-  errorClass: 'text--invalid',
-  successClass: 'text--valid',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextTag: 'span',
-  errorTextClass: 'text__error'
 });
 
 const checktextDescriptionLength = () => textDescription <= COMMENT_MAX_LENGTH;

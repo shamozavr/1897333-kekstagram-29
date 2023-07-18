@@ -32,12 +32,12 @@ const onUploadFormSubmit = (evt) => {
 
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
 
-const ondocumentKeyDown = (evt) => {
-  if (isEscapeKey && evt.target !== isTextFieldFocused) {//Исключает поля ввода комментов и хэштегов при нажатии esc
+function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
+  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {//Исключает поля ввода комментов и хэштегов при нажатии esc
     evt.preventDefault();
     hidemodal();
   }
-};
+}
 
 const initUploadForm = () => {
   initValidation();
