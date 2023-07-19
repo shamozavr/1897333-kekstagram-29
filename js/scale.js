@@ -1,7 +1,7 @@
 const scaleSmallerButton = document.querySelector('.scale__control--smaller');
 const scaleBiggerButton = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
-const imgUploadPreview = document.querySelector('.img-upload__preview');
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 scaleSmallerButton.onclick = () => {
   if (Number(scaleValue.value.replace(/%/, '')) > 25) {
