@@ -1,5 +1,6 @@
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
+const effectsContainer = document.querySelector('.img-upload__effects');
 const effectValue = document.querySelector('.effect-level__value');
 const allEffects = document.querySelectorAll('.effects__radio');
 
@@ -12,35 +13,40 @@ const EFFECTS = {
       min: 0,
       max: 1
     },
-    step: 0.1
+    step: 0.1,
+    unit: ''
   },
   sepia: {
     filter: {
       min: 0,
       max: 1
     },
-    step: 0.1
+    step: 0.1,
+    unit: ''
   },
   invert: {
     filter: {
       min: 0,
       max: 100
     },
-    step: 1
+    step: 1,
+    unit: '%'
   },
   blur: {
     filter: {
       min: 0,
       max: 3
     },
-    step: 0.1
+    step: 0.1,
+    unit: 'px'
   },
   brightness: {
     filter: {
       min: 1,
       max: 3
     },
-    step: 0.1
+    step: 0.1,
+    unit: ''
   }
 };
 
@@ -71,7 +77,7 @@ const effectCheck = (effectsArray, effectsObjects) => {
           },
           step: effectsObjects.element.step,
         });
-        document.querySelector(`#effect-${element}`).style.filter = effectValue.value;
+        document.querySelector(`#effect-${element}`).style.filter = effectValue.value + effectsObjects.element.unit;
       }
     });
   });
