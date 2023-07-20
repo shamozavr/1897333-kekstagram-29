@@ -90,7 +90,8 @@ effectsContainer.addEventListener('click', (evt) => {
         min: chosenEffect.min,
         max: chosenEffect.max,
       },
-      step: chosenEffect.step
+      step: chosenEffect.step,
+      start: chosenEffect.max
     });
   }
   if (evt.target.value === 'none') {
