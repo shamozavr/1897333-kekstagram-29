@@ -1,5 +1,6 @@
 import {isEscapeKey} from './utils.js';
 import { initValidation, validatePristine} from './validation.js';
+import { scaleReset } from './scale.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
@@ -22,6 +23,7 @@ const hidemodal = () => {
   overlay.classList.add('hidden');
   document.documentElement.classList.remove('modal-open');
   document.removeEventListener('keydown', ondocumentKeyDown);
+  scaleReset();
 };
 
 const onUploadFormSubmit = (evt) => {
