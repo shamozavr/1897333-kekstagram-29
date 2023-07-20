@@ -63,9 +63,17 @@ const EFFECTS = {
 };
 
 
-
 let chosenEffect = EFFECTS.none;
 
+const showSlider = () => {
+  sliderContainer.classList.remove('hidden');
+};
+
+const hideSlider = () => {
+  sliderContainer.classList.add('hidden');
+};
+
+hideSlider();
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -82,8 +90,9 @@ const setImageStyle = () => {
 };
 
 effectsContainer.addEventListener('click', (evt) => {
-  if (evt.target.value) {
+  if (evt.target.value && evt.target.value !== 'none') {
     console.log(evt.target.value);
+    showSlider();
     chosenEffect = EFFECTS[evt.target.value];
     sliderElement.noUiSlider.updateOptions({
       range: {
@@ -93,19 +102,16 @@ effectsContainer.addEventListener('click', (evt) => {
       step: chosenEffect.step
     });
   }
+  if (evt.target.value === 'none') {
+    hideSlider();
+  }
   setImageStyle();
-})
+});
 
 sliderElement.noUiSlider.on('update', () => {
   effectValue.value = sliderElement.noUiSlider.get();
-  setImageStyle()
+  setImageStyle();
 });
-
-
-
-
-
-
 
 
 // const setEffect = (effect) => {
