@@ -22,4 +22,41 @@ function createRandomIdFromRangeGenerator (min, max) {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, isEscapeKey};
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const error = errorTemplate.cloneNode(true);
+
+const errorFragment = document.createDocumentFragment();
+
+const serverError = () => {
+  error.querySelector('.error__title').textContent = 'Ошибка соединения';
+  error.querySelector('.error__button').addEventListener('click', () => {
+    window.location.reload();
+  });
+  error.querySelector('.error__button').textContent = 'Перезагрузить страницу';
+
+  errorFragment.append(error);
+
+  document.documentElement.append(errorFragment);
+
+  setTimeout(() => {
+    error.remove();
+  }, 5000);
+};
+
+const uploadError = () => {
+  error.querySelector('.error__button').addEventListener('click', () => {
+    error.remove();
+  });
+  document.documentElement.append(error);
+};
+
+const uploadSuccess = () => {
+  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+  const success = successTemplate.cloneNode(true);
+  success.querySelector('.success__button').addEventListener('click', () => {
+    success.remove();
+  });
+  document.documentElement.append(success);
+};
+
+export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, isEscapeKey, serverError, uploadError, uploadSuccess};
