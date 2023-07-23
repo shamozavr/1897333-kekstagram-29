@@ -1,4 +1,4 @@
-import { shuffleArray } from './utils.js';
+import { shuffleArray, debounce } from './utils.js';
 
 
 const fitersBlock = document.querySelector('.img-filters');
@@ -20,7 +20,7 @@ filterDefault.addEventListener('click', () => {
   activeButton = document.querySelector('.img-filters__button--active');
 });
 
-filterRandom.addEventListener('click', () => {
+filterRandom.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterRandom.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
@@ -49,9 +49,9 @@ filterRandom.addEventListener('click', () => {
   });
 
   pictureBlock.append(picturesFragment);
-});
+}));
 
-filterDiscussed.addEventListener('click', () => {
+filterDiscussed.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterDiscussed.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
@@ -70,6 +70,6 @@ filterDiscussed.addEventListener('click', () => {
   });
 
   pictureBlock.append(picturesFragment);
-});
+}));
 
 export {fitersBlock};
