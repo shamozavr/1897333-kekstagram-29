@@ -1,6 +1,7 @@
-import {isEscapeKey} from './utils.js';
+import {isEscapeKey, uploadError, uploadSuccess} from './utils.js';
 import { initValidation, validatePristine} from './validation.js';
 import { scaleReset } from './scale.js';
+import { resetSlider, resetFilter} from './effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
@@ -24,12 +25,33 @@ const hidemodal = () => {
   document.documentElement.classList.remove('modal-open');
   document.removeEventListener('keydown', ondocumentKeyDown);
   scaleReset();
+  resetSlider();
+  resetFilter();
 };
 
-const onUploadFormSubmit = (evt) => {
-  if (!validatePristine()) {
+const setUploadFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
-  }
+
+    if (validatePristine) {
+      const formData = new FormData(evt.target);
+
+      fetch(
+        'https://29.javascript.pages.academy/kekstagram',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      ).then((response) => {
+        if (response.ok) {
+          onSuccess();
+          uploadSuccess();
+        } else {
+          throw new Error;
+        }
+      }).catch(uploadError);
+    }
+  });
 };
 
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
@@ -44,8 +66,8 @@ function ondocumentKeyDown (evt) {//декларативно потому что
 const initUploadForm = () => {
   initValidation();
   uploadFile.addEventListener('change', showmodal);
-  form.addEventListener('submit', onUploadFormSubmit);
+  // form.addEventListener('submit', onUploadFormSubmit);
   cancelButton.addEventListener('click', hidemodal);
 };
 
-export {initUploadForm};
+export {initUploadForm, setUploadFormSubmit, hidemodal};

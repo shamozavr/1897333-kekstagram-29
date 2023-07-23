@@ -65,6 +65,14 @@ const hideSlider = () => {
   sliderContainer.classList.add('hidden');
 };
 
+const resetSlider = () => {
+  sliderElement.noUiSlider.reset();
+};
+
+const resetFilter = () => {
+  imageElement.style.filter = 'none';
+};
+
 hideSlider();
 
 noUiSlider.create(sliderElement, {
@@ -93,14 +101,17 @@ effectsContainer.addEventListener('click', (evt) => {
       step: chosenEffect.step,
       start: chosenEffect.max
     });
+    setImageStyle();
   }
-  if (evt.target.value === 'none') {
+  if (evt.target.value && evt.target.value === 'none') {
     hideSlider();
+    imageElement.style.filter = 'none';
   }
-  setImageStyle();
 });
 
 sliderElement.noUiSlider.on('update', () => {
   effectValue.value = sliderElement.noUiSlider.get();
   setImageStyle();
 });
+
+export {resetSlider, resetFilter};
