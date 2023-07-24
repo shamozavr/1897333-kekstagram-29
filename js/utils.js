@@ -51,6 +51,23 @@ const serverError = () => {
   }, 5000);
 };
 
+const formatError = () => {
+  error.querySelector('.error__title').textContent = 'Неверный формат изображения';
+  error.querySelector('.error__button').addEventListener('click', () => {
+    error.remove();
+    document.querySelector('.img-upload__overlay').classList.add('hidden');
+  });
+
+  errorFragment.append(error);
+
+  document.documentElement.append(errorFragment);
+
+  setTimeout(() => {
+    error.remove();
+    document.querySelector('.img-upload__overlay').classList.add('hideen');
+  }, 5000);
+};
+
 const uploadError = () => {
   error.querySelector('.error__button').addEventListener('click', () => {
     error.remove();
@@ -85,4 +102,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, shuffleArray, isEscapeKey, serverError, uploadError, uploadSuccess, debounce};
+export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, shuffleArray, isEscapeKey, serverError, uploadError, formatError, uploadSuccess, debounce};

@@ -1,4 +1,4 @@
-import {isEscapeKey, uploadError, uploadSuccess} from './utils.js';
+import {isEscapeKey, uploadError, formatError, uploadSuccess, } from './utils.js';
 import { initValidation, validatePristine} from './validation.js';
 import { scaleReset } from './scale.js';
 import { resetSlider, resetFilter} from './effects.js';
@@ -7,6 +7,9 @@ const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
 const overlay = form.querySelector('.img-upload__overlay');
 const cancelButton = form.querySelector('.img-upload__cancel');
+
+const imgPreview = form.querySelector('.img-upload__preview img');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 const hashTagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
@@ -52,6 +55,7 @@ const setUploadFormSubmit = (onSuccess) => {
       }).catch(uploadError);
     }
   });
+  // document.querySelector('.img-upload__preview img').src = 'img/upload-default-image.jpg';
 };
 
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
@@ -65,9 +69,20 @@ function ondocumentKeyDown (evt) {//декларативно потому что
 
 const initUploadForm = () => {
   initValidation();
-  uploadFile.addEventListener('change', showmodal);
+  uploadFile.addEventListener('click', showmodal);
+  uploadFile.addEventListener('change', () => {
+    const file = uploadFile.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    if (!matches) {
+      formatError();
+    }
+    imgPreview.src = URL.createObjectURL(file);
+  });
   // form.addEventListener('submit', onUploadFormSubmit);
   cancelButton.addEventListener('click', hidemodal);
 };
+
 
 export {initUploadForm, setUploadFormSubmit, hidemodal};
