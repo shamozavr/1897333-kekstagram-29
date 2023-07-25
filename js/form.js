@@ -14,6 +14,8 @@ const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const hashTagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 
+const submitButton = form.querySelector('#upload-submit');
+
 //Открывает форму загрузки изображения
 const showmodal = () => {
   overlay.classList.remove('hidden');
@@ -32,15 +34,24 @@ const hidemodal = () => {
   resetFilter();
 };
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+};
+
 const setUploadFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     if (validatePristine) {
+      blockSubmitButton();
       const formData = new FormData(evt.target);
 
       fetch(
-        'https://29.javascript.pages.academ/kekstagram',
+        'https://29.javascript.pages.academy/kekstagram',
         {
           method: 'POST',
           body: formData,
@@ -52,7 +63,8 @@ const setUploadFormSubmit = (onSuccess) => {
         } else {
           throw new Error;
         }
-      }).catch(uploadError);
+      }).catch(uploadError)
+        .finally(unblockSubmitButton);
     }
   });
 };
