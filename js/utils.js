@@ -92,6 +92,16 @@ const uploadSuccess = () => {
     success.remove();
     document.querySelector('.img-upload__preview img').src = 'img/upload-default-image.jpg';
   });
+  success.addEventListener('click', (evt) => {
+    if (evt.target && evt.target !== document.querySelector('.success__inner')) {
+      success.remove();
+    }
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      success.remove();
+    }
+  });
   document.documentElement.append(success);
 };
 
