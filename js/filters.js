@@ -1,5 +1,5 @@
-import { shuffleArray, debounce } from './utils.js';
-
+import { shuffleArray, debounce, } from './utils.js';
+import { pictureArray } from './api.js';
 
 const fitersBlock = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
@@ -18,6 +18,13 @@ filterDefault.addEventListener('click', () => {
   activeButton.classList.remove('img-filters__button--active');
   filterDefault.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
+
+
+  pictureArray.forEach((el) => {
+    picturesFragment.append(el);
+  });
+
+  pictureBlock.append(picturesFragment);
 });
 
 filterRandom.addEventListener('click', debounce(() => {
@@ -25,7 +32,6 @@ filterRandom.addEventListener('click', debounce(() => {
   filterRandom.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArray = Array.from(pictureBlock.querySelectorAll('a.picture'));
   const pictureArrayClone = [...pictureArray];
   for(let i = 0; i < pictureArray.length; i++) {
     pictureArray[i].remove();
@@ -56,7 +62,6 @@ filterDiscussed.addEventListener('click', debounce(() => {
   filterDiscussed.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArray = Array.from(pictureBlock.querySelectorAll('a.picture'));
   const pictureArrayClone = [...pictureArray];
 
   for(let i = 0; i < pictureArray.length; i++) {
