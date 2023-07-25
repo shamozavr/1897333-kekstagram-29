@@ -72,6 +72,11 @@ const uploadError = () => {
   error.querySelector('.error__button').addEventListener('click', () => {
     error.remove();
   });
+  error.addEventListener('click', (evt) => {
+    if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+      error.remove();
+    }
+  });
   document.documentElement.append(error);
 };
 
