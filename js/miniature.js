@@ -1,6 +1,6 @@
 import {createPostsArray} from './data.js';
 import {POSTSQUANTITY} from './data.js';
-import {openBigPicture} from './bigpicture.js';
+import {openBigPicture} from './big-picture.js';
 
 const pictureList = document.querySelector('.pictures');
 const newPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
