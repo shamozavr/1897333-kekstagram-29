@@ -1,25 +1,3 @@
-function getRandomPositiveInteger (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-  return function () {
-    let currentValue = getRandomPositiveInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomPositiveInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -123,4 +101,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, shuffleArray, isEscapeKey, serverError, uploadError, formatError, uploadSuccess, debounce};
+export {shuffleArray, isEscapeKey, serverError, uploadError, formatError, uploadSuccess, debounce};

@@ -1,5 +1,5 @@
 import { fitersBlock } from './filters.js';
-import {addMiniatureFN} from './miniature.js';
+import { addMiniatureFN } from './miniature.js';
 import { serverError } from './utils.js';
 let pictureArray = [];
 

@@ -1,4 +1,4 @@
-import { shuffleArray, debounce, } from './utils.js';
+import { shuffleArray, debounce } from './utils.js';
 import { pictureArray } from './api.js';
 
 const fitersBlock = document.querySelector('.img-filters');
@@ -8,17 +8,16 @@ const filterDefault = filterForm.querySelector('#filter-default');
 const filterRandom = filterForm.querySelector('#filter-random');
 const filterDiscussed = filterForm.querySelector('#filter-discussed');
 
-let activeButton = document.querySelector('.img-filters__button--active');
-
 const pictureBlock = document.querySelector('.pictures');
 
 const picturesFragment = document.createDocumentFragment();
+
+let activeButton = document.querySelector('.img-filters__button--active');
 
 filterDefault.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterDefault.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
-
 
   pictureArray.forEach((el) => {
     picturesFragment.append(el);
@@ -33,6 +32,7 @@ filterRandom.addEventListener('click', debounce(() => {
   activeButton = document.querySelector('.img-filters__button--active');
 
   const pictureArrayClone = [...pictureArray];
+
   for(let i = 0; i < pictureArray.length; i++) {
     pictureArray[i].remove();
   }

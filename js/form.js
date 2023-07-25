@@ -72,7 +72,7 @@ const setUploadFormSubmit = (onSuccess) => {
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
 
 function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
-  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {//Исключает поля ввода комментов и хэштегов при нажатии esc
+  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {
     evt.preventDefault();
     hidemodal();
   }
@@ -91,9 +91,7 @@ const initUploadForm = () => {
     }
     imgPreview.src = URL.createObjectURL(file);
   });
-  // form.addEventListener('submit', onUploadFormSubmit);
   cancelButton.addEventListener('click', hidemodal);
 };
-
 
 export {initUploadForm, setUploadFormSubmit, hidemodal};
