@@ -14,7 +14,7 @@ const pictureBlock = document.querySelector('.pictures');
 
 const picturesFragment = document.createDocumentFragment();
 
-filterDefault.addEventListener('click', () => {
+filterDefault.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterDefault.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
@@ -25,7 +25,7 @@ filterDefault.addEventListener('click', () => {
   });
 
   pictureBlock.append(picturesFragment);
-});
+}));
 
 filterRandom.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
