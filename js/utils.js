@@ -80,6 +80,7 @@ const uploadSuccess = () => {
   const success = successTemplate.cloneNode(true);
   success.querySelector('.success__button').addEventListener('click', () => {
     success.remove();
+    document.querySelector('.img-upload__preview img').src = 'img/upload-default-image.jpg';
   });
   document.documentElement.append(success);
 };

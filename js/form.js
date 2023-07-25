@@ -55,7 +55,6 @@ const setUploadFormSubmit = (onSuccess) => {
       }).catch(uploadError);
     }
   });
-  // document.querySelector('.img-upload__preview img').src = 'img/upload-default-image.jpg';
 };
 
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
