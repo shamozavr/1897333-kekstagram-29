@@ -77,6 +77,11 @@ const uploadError = () => {
       error.remove();
     }
   });
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      error.remove();
+    }
+  });
   document.documentElement.append(error);
 };
 
