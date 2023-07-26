@@ -1,15 +1,20 @@
-import {isEscapeKey, uploadError, uploadSuccess} from './utils.js';
-import { initValidation, validatePristine} from './validation.js';
+import { isEscapeKey, uploadError, formatError, uploadSuccess } from './utils.js';
+import { initValidation, validatePristine } from './validation.js';
 import { scaleReset } from './scale.js';
-import { resetSlider, resetFilter} from './effects.js';
+import { resetSlider, resetFilter } from './effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
 const overlay = form.querySelector('.img-upload__overlay');
 const cancelButton = form.querySelector('.img-upload__cancel');
 
+const imgPreview = form.querySelector('.img-upload__preview img');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const hashTagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
+
+const submitButton = form.querySelector('#upload-submit');
 
 //Открывает форму загрузки изображения
 const showmodal = () => {
@@ -27,6 +32,15 @@ const hidemodal = () => {
   scaleReset();
   resetSlider();
   resetFilter();
+  document.querySelector('.img-upload__preview img').src = 'img/upload-default-image.jpg';
+};
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
 };
 
 const setUploadFormSubmit = (onSuccess) => {
@@ -34,6 +48,7 @@ const setUploadFormSubmit = (onSuccess) => {
     evt.preventDefault();
 
     if (validatePristine) {
+      blockSubmitButton();
       const formData = new FormData(evt.target);
 
       fetch(
@@ -49,7 +64,8 @@ const setUploadFormSubmit = (onSuccess) => {
         } else {
           throw new Error;
         }
-      }).catch(uploadError);
+      }).catch(uploadError)
+        .finally(unblockSubmitButton);
     }
   });
 };
@@ -57,7 +73,7 @@ const setUploadFormSubmit = (onSuccess) => {
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
 
 function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
-  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {//Исключает поля ввода комментов и хэштегов при нажатии esc
+  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {
     evt.preventDefault();
     hidemodal();
   }
@@ -65,9 +81,18 @@ function ondocumentKeyDown (evt) {//декларативно потому что
 
 const initUploadForm = () => {
   initValidation();
-  uploadFile.addEventListener('change', showmodal);
-  // form.addEventListener('submit', onUploadFormSubmit);
+  uploadFile.addEventListener('click', showmodal);
+  uploadFile.addEventListener('change', () => {
+    const file = uploadFile.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    if (!matches) {
+      formatError();
+    }
+    imgPreview.src = URL.createObjectURL(file);
+  });
   cancelButton.addEventListener('click', hidemodal);
 };
 
-export {initUploadForm, setUploadFormSubmit, hidemodal};
+export { initUploadForm, setUploadFormSubmit, hidemodal };

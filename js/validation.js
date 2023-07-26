@@ -7,9 +7,9 @@ const CHECK_HASHTAGS_VALIDITY = 'Используйте валидный хэш�
 const CHECK_HASHTAGS_COUNT = 'Нельзя указать более пяти хэштегов.';
 const CHECK_DOUBLE_HASHTAGS = 'Один и тот же хэштег не может быть использован дважды.';
 
-const imgUploadForm = document.querySelector('.img-upload__form'); //<form class="img-upload__form"
-const textHashtags = document.querySelector('.text__hashtags'); //Поле для хэштега
-const textDescription = document.querySelector('.text__description'); //Поле для комментария <textarea class="text__description"
+const imgUploadForm = document.querySelector('.img-upload__form');
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -32,8 +32,6 @@ const checkHashtagsCount = (value) => cleanHashtags(value).length <= HASHTAG_MAX
 
 const checkHashtagsRepeat = (value) => Array.from(cleanHashtags(value)).length === [...new Set(cleanHashtags(value))].length;
 
-// console.log(isHashtagsValid(' #Ara #Izi #IZI #ARA Hub '));
-
 const validatePristine = () => pristine.validate(); //Использует метод библиотеки validate()
 
 //Вывод валидатора (исп. 5 параметров: поле, колбэк проверки, текст ошибки, приоритет, прерывание)
@@ -44,5 +42,5 @@ const initValidation = () => {
   pristine.addValidator(textHashtags, checkHashtagsRepeat, CHECK_DOUBLE_HASHTAGS, 1, true);
 };
 
-export { initValidation, validatePristine};
+export { initValidation, validatePristine };
 

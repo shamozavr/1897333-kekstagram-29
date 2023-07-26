@@ -1,5 +1,5 @@
 import { shuffleArray, debounce } from './utils.js';
-
+import { picturesArray } from './api.js';
 
 const fitersBlock = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
@@ -8,40 +8,48 @@ const filterDefault = filterForm.querySelector('#filter-default');
 const filterRandom = filterForm.querySelector('#filter-random');
 const filterDiscussed = filterForm.querySelector('#filter-discussed');
 
-let activeButton = document.querySelector('.img-filters__button--active');
-
 const pictureBlock = document.querySelector('.pictures');
 
 const picturesFragment = document.createDocumentFragment();
 
-filterDefault.addEventListener('click', () => {
+const RANDOM_PICTURE_COUNT = 10;
+
+let activeButton = document.querySelector('.img-filters__button--active');
+
+filterDefault.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterDefault.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
-});
+
+  picturesArray.forEach((el) => {
+    picturesFragment.append(el);
+  });
+
+  pictureBlock.append(picturesFragment);
+}));
 
 filterRandom.addEventListener('click', debounce(() => {
   activeButton.classList.remove('img-filters__button--active');
   filterRandom.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArray = Array.from(pictureBlock.querySelectorAll('a.picture'));
-  const pictureArrayClone = [...pictureArray];
-  for(let i = 0; i < pictureArray.length; i++) {
-    pictureArray[i].remove();
+  const picturesArrayClone = [...picturesArray];
+
+  for(let i = 0; i < picturesArray.length; i++) {
+    picturesArray[i].remove();
   }
 
   const ids = [];
-  for(let i = 0; i < pictureArrayClone.length; i++) {
+  for(let i = 0; i < picturesArrayClone.length; i++) {
     ids.push(i);
   }
 
   const shuffledIds = shuffleArray(ids);
 
   const shuffledArray = [];
-  for(let i = 0; i < shuffledIds.length; i++) {
+  for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
     const index = shuffledIds[i];
-    shuffledArray.push(pictureArrayClone[index]);
+    shuffledArray.push(picturesArrayClone[index]);
   }
 
   shuffledArray.forEach((el) => {
@@ -56,16 +64,15 @@ filterDiscussed.addEventListener('click', debounce(() => {
   filterDiscussed.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArray = Array.from(pictureBlock.querySelectorAll('a.picture'));
-  const pictureArrayClone = [...pictureArray];
+  const picturesArrayClone = [...picturesArray];
 
-  for(let i = 0; i < pictureArray.length; i++) {
-    pictureArray[i].remove();
+  for(let i = 0; i < picturesArray.length; i++) {
+    picturesArray[i].remove();
   }
 
-  pictureArrayClone.sort((a,b) => a.querySelector('.picture__comments').textContent - b.querySelector('.picture__comments').textContent);
+  picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
 
-  pictureArrayClone.forEach((el) => {
+  picturesArrayClone.forEach((el) => {
     picturesFragment.append(el);
   });
 
