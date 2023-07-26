@@ -73,7 +73,7 @@ const setUploadFormSubmit = (onSuccess) => {
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
 
 function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
-  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {
+  if (isEscapeKey(evt) && !isTextFieldFocused) {
     evt.preventDefault();
     hidemodal();
   }
