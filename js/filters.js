@@ -1,5 +1,5 @@
 import { shuffleArray, debounce } from './utils.js';
-import { pictureArray } from './api.js';
+import { picturesArray } from './api.js';
 
 const fitersBlock = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
@@ -21,7 +21,7 @@ filterDefault.addEventListener('click', debounce(() => {
   filterDefault.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  pictureArray.forEach((el) => {
+  picturesArray.forEach((el) => {
     picturesFragment.append(el);
   });
 
@@ -33,14 +33,14 @@ filterRandom.addEventListener('click', debounce(() => {
   filterRandom.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArrayClone = [...pictureArray];
+  const picturesArrayClone = [...picturesArray];
 
-  for(let i = 0; i < pictureArray.length; i++) {
-    pictureArray[i].remove();
+  for(let i = 0; i < picturesArray.length; i++) {
+    picturesArray[i].remove();
   }
 
   const ids = [];
-  for(let i = 0; i < pictureArrayClone.length; i++) {
+  for(let i = 0; i < picturesArrayClone.length; i++) {
     ids.push(i);
   }
 
@@ -49,7 +49,7 @@ filterRandom.addEventListener('click', debounce(() => {
   const shuffledArray = [];
   for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
     const index = shuffledIds[i];
-    shuffledArray.push(pictureArrayClone[index]);
+    shuffledArray.push(picturesArrayClone[index]);
   }
 
   shuffledArray.forEach((el) => {
@@ -64,15 +64,15 @@ filterDiscussed.addEventListener('click', debounce(() => {
   filterDiscussed.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const pictureArrayClone = [...pictureArray];
+  const picturesArrayClone = [...picturesArray];
 
-  for(let i = 0; i < pictureArray.length; i++) {
-    pictureArray[i].remove();
+  for(let i = 0; i < picturesArray.length; i++) {
+    picturesArray[i].remove();
   }
 
-  pictureArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
+  picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
 
-  pictureArrayClone.forEach((el) => {
+  picturesArrayClone.forEach((el) => {
     picturesFragment.append(el);
   });
 
