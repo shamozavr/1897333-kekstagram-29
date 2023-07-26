@@ -68,7 +68,7 @@ filterDiscussed.addEventListener('click', debounce(() => {
     pictureArray[i].remove();
   }
 
-  pictureArrayClone.sort((a,b) => a.querySelector('.picture__comments').textContent - b.querySelector('.picture__comments').textContent);
+  pictureArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
 
   pictureArrayClone.forEach((el) => {
     picturesFragment.append(el);
