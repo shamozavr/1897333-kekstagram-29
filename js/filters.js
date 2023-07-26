@@ -12,6 +12,8 @@ const pictureBlock = document.querySelector('.pictures');
 
 const picturesFragment = document.createDocumentFragment();
 
+const RANDOM_PICTURE_COUNT = 10;
+
 let activeButton = document.querySelector('.img-filters__button--active');
 
 filterDefault.addEventListener('click', debounce(() => {
@@ -45,7 +47,7 @@ filterRandom.addEventListener('click', debounce(() => {
   const shuffledIds = shuffleArray(ids);
 
   const shuffledArray = [];
-  for(let i = 0; i < shuffledIds.length; i++) {
+  for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
     const index = shuffledIds[i];
     shuffledArray.push(pictureArrayClone[index]);
   }
