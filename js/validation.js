@@ -42,5 +42,5 @@ const initValidation = () => {
   pristine.addValidator(textHashtags, checkHashtagsRepeat, CHECK_DOUBLE_HASHTAGS, 1, true);
 };
 
-export { initValidation, validatePristine};
+export { initValidation, validatePristine };
 

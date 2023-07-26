@@ -21,4 +21,4 @@ const scaleReset = () => {
   imgUploadPreview.style.transform = 'scale(100%)';
 };
 
-export {scaleReset};
+export { scaleReset };

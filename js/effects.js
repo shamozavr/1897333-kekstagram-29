@@ -114,4 +114,4 @@ sliderElement.noUiSlider.on('update', () => {
   setImageStyle();
 });
 
-export {resetSlider, resetFilter};
+export { resetSlider, resetFilter };

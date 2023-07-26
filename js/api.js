@@ -16,4 +16,4 @@ const getData = () => fetch('https://29.javascript.pages.academy/kekstagram/data
     }
   }).catch(serverError);
 
-export {getData, pictureArray};
+export { getData, pictureArray };

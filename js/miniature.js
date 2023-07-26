@@ -23,4 +23,4 @@ const addMiniatureFN = (array) => {
   pictureList.append(PicturesFragment);
 };
 
-export {addMiniatureFN};
+export { addMiniatureFN };

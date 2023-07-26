@@ -101,4 +101,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {shuffleArray, isEscapeKey, serverError, uploadError, formatError, uploadSuccess, debounce};
+export { shuffleArray, isEscapeKey, serverError, uploadError, formatError, uploadSuccess, debounce };

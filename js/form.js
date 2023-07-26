@@ -1,7 +1,7 @@
-import {isEscapeKey, uploadError, formatError, uploadSuccess, } from './utils.js';
-import { initValidation, validatePristine} from './validation.js';
+import { isEscapeKey, uploadError, formatError, uploadSuccess } from './utils.js';
+import { initValidation, validatePristine } from './validation.js';
 import { scaleReset } from './scale.js';
-import { resetSlider, resetFilter} from './effects.js';
+import { resetSlider, resetFilter } from './effects.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
@@ -94,4 +94,4 @@ const initUploadForm = () => {
   cancelButton.addEventListener('click', hidemodal);
 };
 
-export {initUploadForm, setUploadFormSubmit, hidemodal};
+export { initUploadForm, setUploadFormSubmit, hidemodal };
