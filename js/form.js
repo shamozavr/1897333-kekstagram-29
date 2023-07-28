@@ -20,7 +20,7 @@ const submitButton = form.querySelector('#upload-submit');
 const showmodal = () => {
   overlay.classList.remove('hidden');
   document.documentElement.classList.add('modal-open');
-  document.addEventListener('keydown', ondocumentKeyDown);
+  document.addEventListener('keydown', ondocumentKeyDown, {once: true});
 };
 
 //Закрывает форму загрузки изображения
@@ -28,7 +28,7 @@ const hidemodal = () => {
   form.reset();
   overlay.classList.add('hidden');
   document.documentElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', ondocumentKeyDown);
+  document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
   scaleReset();
   resetSlider();
   resetFilter();
@@ -52,7 +52,7 @@ const setUploadFormSubmit = (onSuccess) => {
       const formData = new FormData(evt.target);
 
       fetch(
-        'https://29.javascript.pages.academy/kekstagram',
+        'https://29.javascript.pages.academ/kekstagram',
         {
           method: 'POST',
           body: formData,
@@ -98,4 +98,4 @@ const initUploadForm = () => {
   cancelButton.addEventListener('click', hidemodal);
 };
 
-export { initUploadForm, setUploadFormSubmit, hidemodal };
+export { initUploadForm, setUploadFormSubmit, hidemodal, ondocumentKeyDown };

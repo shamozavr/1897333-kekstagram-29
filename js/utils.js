@@ -1,3 +1,5 @@
+import { ondocumentKeyDown } from './form.js';
+
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -47,16 +49,21 @@ const formatError = () => {
 };
 
 const uploadError = () => {
+  document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
+
   error.querySelector('.error__button').addEventListener('click', () => {
+    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
     error.remove();
   });
   error.addEventListener('click', (evt) => {
     if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
       error.remove();
     }
   });
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
+      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
       error.remove();
     }
   });
