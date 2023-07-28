@@ -54,18 +54,58 @@ const uploadError = () => {
   error.querySelector('.error__button').addEventListener('click', () => {
     document.addEventListener('keydown', ondocumentKeyDown, {once: true});
     error.remove();
+
+    error.removeEventListener('click', (evt) => {
+      if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+        error.remove();
+      }
+    });
+
+    document.removeEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+        error.remove();
+      }
+    });
   });
+
   error.addEventListener('click', (evt) => {
     if (evt.target && evt.target !== document.querySelector('.error__inner')) {
       document.addEventListener('keydown', ondocumentKeyDown, {once: true});
       error.remove();
     }
+
+    error.querySelector('.error__button').removeEventListener('click', () => {
+      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+      error.remove();
+    });
+
+    document.removeEventListener('keydown', () => {
+      if (isEscapeKey(evt)) {
+        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+        error.remove();
+      }
+    });
   });
+
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       document.addEventListener('keydown', ondocumentKeyDown, {once: true});
       error.remove();
     }
+
+    error.querySelector('.error__button').removeEventListener('click', () => {
+      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+      error.remove();
+    });
+
+    error.removeEventListener('click', () => {
+      if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+        error.remove();
+      }
+    });
   });
   document.documentElement.append(error);
 };
