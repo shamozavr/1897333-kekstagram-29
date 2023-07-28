@@ -81,7 +81,6 @@ function ondocumentKeyDown (evt) {//декларативно потому что
 
 const initUploadForm = () => {
   initValidation();
-  uploadFile.addEventListener('click', showmodal);
   uploadFile.addEventListener('change', () => {
     const file = uploadFile.files[0];
     const fileName = file.name.toLowerCase();
@@ -91,6 +90,10 @@ const initUploadForm = () => {
       formatError();
     }
     imgPreview.src = URL.createObjectURL(file);
+    document.querySelectorAll('.effects__preview').forEach((el)=> {
+      el.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+    });
+    showmodal();
   });
   cancelButton.addEventListener('click', hidemodal);
 };
