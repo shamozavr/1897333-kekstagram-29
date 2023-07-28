@@ -1,19 +1,28 @@
-import { fitersBlock } from './filters.js';
 import { addMiniatureFN } from './miniature.js';
 import { serverError } from './utils.js';
-let picturesArray = [];
+import { filterDefaultButton, filterRandomButton, filterDiscussedButton, filterDefault, filterRandom, filterDiscussed } from './filters.js';
+
 
 const getData = () => fetch('https://29.javascript.pages.academy/kekstagram/data')
   .then((response) => {
     if (response.ok) {
       response.json().then((picturesData) => {
-        addMiniatureFN(picturesData);
-        fitersBlock.classList.remove('img-filters--inactive');
-        picturesArray = Array.from(document.querySelector('.pictures').querySelectorAll('a.picture'));
+        document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+        const picturesArray = addMiniatureFN(picturesData);
+        filterDefault(picturesArray);
+        filterDefaultButton.addEventListener('click', () => {
+          filterDefault(picturesArray);
+        });
+        filterRandomButton.addEventListener('click', () => {
+          filterRandom(picturesArray);
+        });
+        filterDiscussedButton.addEventListener('click', () => {
+          filterDiscussed(picturesArray);
+        });
       });
     } else {
       throw new Error;
     }
   }).catch(serverError);
 
-export { getData, picturesArray };
+export { getData };

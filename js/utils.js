@@ -1,3 +1,5 @@
+import { ondocumentKeyDown } from './form.js';
+
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -45,21 +47,45 @@ const formatError = () => {
     document.querySelector('.img-upload__overlay').classList.add('hideen');
   }, 5000);
 };
+///////////////////////////////////////////////////////////////////
+function onButtonErrorRemove () {
+  document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+  error.removeEventListener('click', onAreaErrorRemove, {once: true});
+  document.removeEventListener('keydown', onKeyDownErrorRemove, {once: true});
+
+  error.remove();
+}
+
+function onAreaErrorRemove (evt) {
+  if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+    error.querySelector('.error__button').removeEventListener('click', onButtonErrorRemove, {once: true});
+    document.removeEventListener('keydown', onKeyDownErrorRemove, {once: true});
+    error.remove();
+  }
+}
+
+function onKeyDownErrorRemove (evt) {
+  if (isEscapeKey(evt)) {
+    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+    error.querySelector('.error__button').removeEventListener('click', onButtonErrorRemove, {once: true});
+    error.removeEventListener('click', onAreaErrorRemove, {once: true});
+    error.remove();
+  }
+}
 
 const uploadError = () => {
-  error.querySelector('.error__button').addEventListener('click', () => {
-    error.remove();
-  });
-  error.addEventListener('click', (evt) => {
-    if (evt.target && evt.target !== document.querySelector('.error__inner')) {
-      error.remove();
-    }
-  });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      error.remove();
-    }
-  });
+  document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
+
+  //Клик по кнопке
+  error.querySelector('.error__button').addEventListener('click', onButtonErrorRemove, {once: true});
+
+  //Клик по по области
+  error.addEventListener('click', onAreaErrorRemove, {once: true});
+
+  //Нажатие на ESC
+  document.addEventListener('keydown', onKeyDownErrorRemove, {once: true});
+
   document.documentElement.append(error);
 };
 

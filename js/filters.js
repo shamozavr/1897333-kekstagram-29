@@ -1,12 +1,8 @@
-import { shuffleArray, debounce } from './utils.js';
-import { picturesArray } from './api.js';
+import { shuffleArray } from './utils.js';
 
-const fitersBlock = document.querySelector('.img-filters');
-const filterForm = document.querySelector('.img-filters__form');
-
-const filterDefault = filterForm.querySelector('#filter-default');
-const filterRandom = filterForm.querySelector('#filter-random');
-const filterDiscussed = filterForm.querySelector('#filter-discussed');
+const filterDefaultButton = document.querySelector('.img-filters__form').querySelector('#filter-default');
+const filterRandomButton = document.querySelector('.img-filters__form').querySelector('#filter-random');
+const filterDiscussedButton = document.querySelector('.img-filters__form').querySelector('#filter-discussed');
 
 const pictureBlock = document.querySelector('.pictures');
 
@@ -16,27 +12,39 @@ const RANDOM_PICTURE_COUNT = 10;
 
 let activeButton = document.querySelector('.img-filters__button--active');
 
-filterDefault.addEventListener('click', debounce(() => {
+const filterDefault = (arrayToSort) => {
   activeButton.classList.remove('img-filters__button--active');
-  filterDefault.classList.add('img-filters__button--active');
+  filterDefaultButton.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  picturesArray.forEach((el) => {
+  arrayToSort.forEach((el) => {
     picturesFragment.append(el);
   });
 
   pictureBlock.append(picturesFragment);
-}));
+};
 
-filterRandom.addEventListener('click', debounce(() => {
+// filterDefaultButton.addEventListener('click', debounce(() => {
+//   activeButton.classList.remove('img-filters__button--active');
+//   filterDefaultButton.classList.add('img-filters__button--active');
+//   activeButton = document.querySelector('.img-filters__button--active');
+
+//   picturesArray.forEach((el) => {
+//     picturesFragment.append(el);
+//   });
+
+//   pictureBlock.append(picturesFragment);
+// }));
+
+const filterRandom = (arrayToSort) => {
   activeButton.classList.remove('img-filters__button--active');
-  filterRandom.classList.add('img-filters__button--active');
+  filterRandomButton.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const picturesArrayClone = [...picturesArray];
+  const picturesArrayClone = [...arrayToSort];
 
-  for(let i = 0; i < picturesArray.length; i++) {
-    picturesArray[i].remove();
+  for(let i = 0; i < arrayToSort.length; i++) {
+    arrayToSort[i].remove();
   }
 
   const ids = [];
@@ -57,17 +65,48 @@ filterRandom.addEventListener('click', debounce(() => {
   });
 
   pictureBlock.append(picturesFragment);
-}));
+};
 
-filterDiscussed.addEventListener('click', debounce(() => {
+// filterRandomButton.addEventListener('click', debounce(() => {
+//   activeButton.classList.remove('img-filters__button--active');
+//   filterRandomButton.classList.add('img-filters__button--active');
+//   activeButton = document.querySelector('.img-filters__button--active');
+
+//   const picturesArrayClone = [...picturesArray];
+
+//   for(let i = 0; i < picturesArray.length; i++) {
+//     picturesArray[i].remove();
+//   }
+
+//   const ids = [];
+//   for(let i = 0; i < picturesArrayClone.length; i++) {
+//     ids.push(i);
+//   }
+
+//   const shuffledIds = shuffleArray(ids);
+
+//   const shuffledArray = [];
+//   for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
+//     const index = shuffledIds[i];
+//     shuffledArray.push(picturesArrayClone[index]);
+//   }
+
+//   shuffledArray.forEach((el) => {
+//     picturesFragment.append(el);
+//   });
+
+//   pictureBlock.append(picturesFragment);
+// }));
+
+const filterDiscussed = (arrayToSort) => {
   activeButton.classList.remove('img-filters__button--active');
-  filterDiscussed.classList.add('img-filters__button--active');
+  filterDiscussedButton.classList.add('img-filters__button--active');
   activeButton = document.querySelector('.img-filters__button--active');
 
-  const picturesArrayClone = [...picturesArray];
+  const picturesArrayClone = [...arrayToSort];
 
-  for(let i = 0; i < picturesArray.length; i++) {
-    picturesArray[i].remove();
+  for(let i = 0; i < arrayToSort.length; i++) {
+    arrayToSort[i].remove();
   }
 
   picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
@@ -77,6 +116,26 @@ filterDiscussed.addEventListener('click', debounce(() => {
   });
 
   pictureBlock.append(picturesFragment);
-}));
+};
 
-export {fitersBlock};
+// filterDiscussedButton.addEventListener('click', debounce(() => {
+//   activeButton.classList.remove('img-filters__button--active');
+//   filterDiscussedButton.classList.add('img-filters__button--active');
+//   activeButton = document.querySelector('.img-filters__button--active');
+
+//   const picturesArrayClone = [...picturesArray];
+
+//   for(let i = 0; i < picturesArray.length; i++) {
+//     picturesArray[i].remove();
+//   }
+
+//   picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
+
+//   picturesArrayClone.forEach((el) => {
+//     picturesFragment.append(el);
+//   });
+
+//   pictureBlock.append(picturesFragment);
+// }));
+
+export { filterDefaultButton, filterRandomButton, filterDiscussedButton, filterDefault, filterRandom, filterDiscussed };

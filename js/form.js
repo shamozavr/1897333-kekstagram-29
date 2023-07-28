@@ -20,7 +20,7 @@ const submitButton = form.querySelector('#upload-submit');
 const showmodal = () => {
   overlay.classList.remove('hidden');
   document.documentElement.classList.add('modal-open');
-  document.addEventListener('keydown', ondocumentKeyDown);
+  document.addEventListener('keydown', ondocumentKeyDown, {once: true});
 };
 
 //Закрывает форму загрузки изображения
@@ -28,7 +28,7 @@ const hidemodal = () => {
   form.reset();
   overlay.classList.add('hidden');
   document.documentElement.classList.remove('modal-open');
-  document.removeEventListener('keydown', ondocumentKeyDown);
+  document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
   scaleReset();
   resetSlider();
   resetFilter();
@@ -52,7 +52,7 @@ const setUploadFormSubmit = (onSuccess) => {
       const formData = new FormData(evt.target);
 
       fetch(
-        'https://29.javascript.pages.academy/kekstagram',
+        'https://29.javascript.pages.academ/kekstagram',
         {
           method: 'POST',
           body: formData,
@@ -73,7 +73,7 @@ const setUploadFormSubmit = (onSuccess) => {
 const isTextFieldFocused = () => document.activeElement === hashTagField || document.activeElement === commentField;
 
 function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
-  if (isEscapeKey(evt) && evt !== isTextFieldFocused) {
+  if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     hidemodal();
   }
@@ -81,7 +81,6 @@ function ondocumentKeyDown (evt) {//декларативно потому что
 
 const initUploadForm = () => {
   initValidation();
-  uploadFile.addEventListener('click', showmodal);
   uploadFile.addEventListener('change', () => {
     const file = uploadFile.files[0];
     const fileName = file.name.toLowerCase();
@@ -91,8 +90,12 @@ const initUploadForm = () => {
       formatError();
     }
     imgPreview.src = URL.createObjectURL(file);
+    document.querySelectorAll('.effects__preview').forEach((el)=> {
+      el.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
+    });
+    showmodal();
   });
   cancelButton.addEventListener('click', hidemodal);
 };
 
-export { initUploadForm, setUploadFormSubmit, hidemodal };
+export { initUploadForm, setUploadFormSubmit, hidemodal, ondocumentKeyDown };
