@@ -1,4 +1,4 @@
-import { shuffleArray, debounce } from './utils.js';
+import { shuffleArray } from './utils.js';
 
 const filterDefaultButton = document.querySelector('.img-filters__form').querySelector('#filter-default');
 const filterRandomButton = document.querySelector('.img-filters__form').querySelector('#filter-random');
@@ -13,17 +13,15 @@ const RANDOM_PICTURE_COUNT = 10;
 let activeButton = document.querySelector('.img-filters__button--active');
 
 const filterDefault = (arrayToSort) => {
-  debounce(() => {
-    activeButton.classList.remove('img-filters__button--active');
-    filterDefaultButton.classList.add('img-filters__button--active');
-    activeButton = document.querySelector('.img-filters__button--active');
+  activeButton.classList.remove('img-filters__button--active');
+  filterDefaultButton.classList.add('img-filters__button--active');
+  activeButton = document.querySelector('.img-filters__button--active');
 
-    arrayToSort.forEach((el) => {
-      picturesFragment.append(el);
-    });
-
-    pictureBlock.append(picturesFragment);
+  arrayToSort.forEach((el) => {
+    picturesFragment.append(el);
   });
+
+  pictureBlock.append(picturesFragment);
 };
 
 // filterDefaultButton.addEventListener('click', debounce(() => {
@@ -39,36 +37,34 @@ const filterDefault = (arrayToSort) => {
 // }));
 
 const filterRandom = (arrayToSort) => {
-  debounce(() => {
-    activeButton.classList.remove('img-filters__button--active');
-    filterRandomButton.classList.add('img-filters__button--active');
-    activeButton = document.querySelector('.img-filters__button--active');
+  activeButton.classList.remove('img-filters__button--active');
+  filterRandomButton.classList.add('img-filters__button--active');
+  activeButton = document.querySelector('.img-filters__button--active');
 
-    const picturesArrayClone = [...arrayToSort];
+  const picturesArrayClone = [...arrayToSort];
 
-    for(let i = 0; i < arrayToSort.length; i++) {
-      arrayToSort[i].remove();
-    }
+  for(let i = 0; i < arrayToSort.length; i++) {
+    arrayToSort[i].remove();
+  }
 
-    const ids = [];
-    for(let i = 0; i < picturesArrayClone.length; i++) {
-      ids.push(i);
-    }
+  const ids = [];
+  for(let i = 0; i < picturesArrayClone.length; i++) {
+    ids.push(i);
+  }
 
-    const shuffledIds = shuffleArray(ids);
+  const shuffledIds = shuffleArray(ids);
 
-    const shuffledArray = [];
-    for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
-      const index = shuffledIds[i];
-      shuffledArray.push(picturesArrayClone[index]);
-    }
+  const shuffledArray = [];
+  for(let i = 0; i < RANDOM_PICTURE_COUNT; i++) {
+    const index = shuffledIds[i];
+    shuffledArray.push(picturesArrayClone[index]);
+  }
 
-    shuffledArray.forEach((el) => {
-      picturesFragment.append(el);
-    });
-
-    pictureBlock.append(picturesFragment);
+  shuffledArray.forEach((el) => {
+    picturesFragment.append(el);
   });
+
+  pictureBlock.append(picturesFragment);
 };
 
 // filterRandomButton.addEventListener('click', debounce(() => {
@@ -103,25 +99,23 @@ const filterRandom = (arrayToSort) => {
 // }));
 
 const filterDiscussed = (arrayToSort) => {
-  debounce(() => {
-    activeButton.classList.remove('img-filters__button--active');
-    filterDiscussedButton.classList.add('img-filters__button--active');
-    activeButton = document.querySelector('.img-filters__button--active');
+  activeButton.classList.remove('img-filters__button--active');
+  filterDiscussedButton.classList.add('img-filters__button--active');
+  activeButton = document.querySelector('.img-filters__button--active');
 
-    const picturesArrayClone = [...arrayToSort];
+  const picturesArrayClone = [...arrayToSort];
 
-    for(let i = 0; i < arrayToSort.length; i++) {
-      arrayToSort[i].remove();
-    }
+  for(let i = 0; i < arrayToSort.length; i++) {
+    arrayToSort[i].remove();
+  }
 
-    picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
+  picturesArrayClone.sort((a,b) => b.querySelector('.picture__comments').textContent - a.querySelector('.picture__comments').textContent);
 
-    picturesArrayClone.forEach((el) => {
-      picturesFragment.append(el);
-    });
-
-    pictureBlock.append(picturesFragment);
+  picturesArrayClone.forEach((el) => {
+    picturesFragment.append(el);
   });
+
+  pictureBlock.append(picturesFragment);
 };
 
 // filterDiscussedButton.addEventListener('click', debounce(() => {
