@@ -1,4 +1,5 @@
 import { openBigPicture } from './big-picture.js';
+import { filterDefaultButton, filterRandomButton, filterDiscussedButton, filterDefault, filterRandom, filterDiscussed } from './filters.js';
 
 const pictureList = document.querySelector('.pictures');
 const newPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -21,6 +22,11 @@ const addMiniatureFN = (array) => {
     PicturesFragment.append(picture);
   });
   pictureList.append(PicturesFragment);
+
+  const picturesArray = Array.from(document.querySelector('.pictures').querySelectorAll('a.picture'));
+  filterDefaultButton.addEventListener('click', filterDefault(picturesArray));
+  filterRandomButton.addEventListener('click', filterRandom(picturesArray));
+  filterDiscussedButton.addEventListener('click', filterDiscussed(picturesArray));
 };
 
 export { addMiniatureFN };
