@@ -47,66 +47,45 @@ const formatError = () => {
     document.querySelector('.img-upload__overlay').classList.add('hideen');
   }, 5000);
 };
+///////////////////////////////////////////////////////////////////
+function onButtonErrorRemove () {
+  document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+  error.removeEventListener('click', onAreaErrorRemove, {once: true});
+  document.removeEventListener('keydown', onKeyDownErrorRemove, {once: true});
+
+  error.remove();
+}
+
+function onAreaErrorRemove (evt) {
+  if (evt.target && evt.target !== document.querySelector('.error__inner')) {
+    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+    error.querySelector('.error__button').removeEventListener('click', onButtonErrorRemove, {once: true});
+    document.removeEventListener('keydown', onKeyDownErrorRemove, {once: true});
+    error.remove();
+  }
+}
+
+function onKeyDownErrorRemove (evt) {
+  if (isEscapeKey(evt)) {
+    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
+    error.querySelector('.error__button').removeEventListener('click', onButtonErrorRemove, {once: true});
+    error.removeEventListener('click', onAreaErrorRemove, {once: true});
+    error.remove();
+  }
+}
 
 const uploadError = () => {
   document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
 
-  error.querySelector('.error__button').addEventListener('click', () => {
-    document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-    error.remove();
+  //Клик по кнопке
+  error.querySelector('.error__button').addEventListener('click', onButtonErrorRemove, {once: true});
 
-    error.removeEventListener('click', (evt) => {
-      if (evt.target && evt.target !== document.querySelector('.error__inner')) {
-        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-        error.remove();
-      }
-    });
+  //Клик по по области
+  error.addEventListener('click', onAreaErrorRemove, {once: true});
 
-    document.removeEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-        error.remove();
-      }
-    });
-  });
+  //Нажатие на ESC
+  document.addEventListener('keydown', onKeyDownErrorRemove, {once: true});
 
-  error.addEventListener('click', (evt) => {
-    if (evt.target && evt.target !== document.querySelector('.error__inner')) {
-      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-      error.remove();
-    }
-
-    error.querySelector('.error__button').removeEventListener('click', () => {
-      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-      error.remove();
-    });
-
-    document.removeEventListener('keydown', () => {
-      if (isEscapeKey(evt)) {
-        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-        error.remove();
-      }
-    });
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-      error.remove();
-    }
-
-    error.querySelector('.error__button').removeEventListener('click', () => {
-      document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-      error.remove();
-    });
-
-    error.removeEventListener('click', () => {
-      if (evt.target && evt.target !== document.querySelector('.error__inner')) {
-        document.addEventListener('keydown', ondocumentKeyDown, {once: true});
-        error.remove();
-      }
-    });
-  });
   document.documentElement.append(error);
 };
 
