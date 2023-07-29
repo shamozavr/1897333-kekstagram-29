@@ -42,7 +42,7 @@ const renderComments = (arrayOfComments) => {
 
 const showComments = () => {
   renderComments(commentsClone.slice(0, commentsShown));
-  socialCommentsCount.textContent = `${Array.from(commentsList.children).length} комментариев из ${bigPictureCommentsCount.textContent}`;
+  socialCommentsCount.textContent = `${Array.from(commentsList.children).length} из ${bigPictureCommentsCount.textContent} комментариев`;
   if (commentsShown >= Number(bigPictureCommentsCount.textContent)) {
     commentsLoader.classList.add('hidden');
   }
