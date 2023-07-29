@@ -47,7 +47,7 @@ const formatError = () => {
     document.querySelector('.img-upload__overlay').classList.add('hideen');
   }, 5000);
 };
-///////////////////////////////////////////////////////////////////
+
 function onButtonErrorRemove () {
   document.addEventListener('keydown', ondocumentKeyDown, {once: true});
   error.removeEventListener('click', onAreaErrorRemove, {once: true});
