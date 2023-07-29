@@ -2,6 +2,7 @@ import { isEscapeKey, uploadError, formatError, uploadSuccess } from './utils.js
 import { initValidation, validatePristine } from './validation.js';
 import { scaleReset } from './scale.js';
 import { resetSlider, resetFilter } from './effects.js';
+import { body } from './big-picture.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadFile = form.querySelector('#upload-file');
@@ -19,7 +20,7 @@ const submitButton = form.querySelector('#upload-submit');
 //Открывает форму загрузки изображения
 const showmodal = () => {
   overlay.classList.remove('hidden');
-  document.documentElement.classList.add('modal-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', ondocumentKeyDown, {once: true});
 };
 
@@ -27,7 +28,7 @@ const showmodal = () => {
 const hidemodal = () => {
   form.reset();
   overlay.classList.add('hidden');
-  document.documentElement.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
   scaleReset();
   resetSlider();
@@ -47,12 +48,12 @@ const setUploadFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    if (validatePristine) {
+    if (validatePristine()) {
       blockSubmitButton();
       const formData = new FormData(evt.target);
 
       fetch(
-        'https://29.javascript.pages.academ/kekstagram',
+        'https://29.javascript.pages.academy/kekstagram',
         {
           method: 'POST',
           body: formData,
