@@ -1,5 +1,5 @@
 import { isEscapeKey, uploadError, formatError, uploadSuccess } from './utils.js';
-import { initValidation, validatePristine } from './validation.js';
+import { initValidation, validatePristine, resetPristine } from './validation.js';
 import { scaleReset } from './scale.js';
 import { resetSlider, resetFilter } from './effects.js';
 import { body } from './big-picture.js';
@@ -18,15 +18,16 @@ const commentField = form.querySelector('.text__description');
 const submitButton = form.querySelector('#upload-submit');
 
 //Открывает форму загрузки изображения
-const showmodal = () => {
+const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', ondocumentKeyDown, {once: true});
 };
 
 //Закрывает форму загрузки изображения
-const hidemodal = () => {
+const hideModal = () => {
   form.reset();
+  resetPristine();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', ondocumentKeyDown, {once: true});
@@ -76,7 +77,7 @@ const isTextFieldFocused = () => document.activeElement === hashTagField || docu
 function ondocumentKeyDown (evt) {//декларативно потому что используется до объявления
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
-    hidemodal();
+    hideModal();
   }
 }
 
@@ -94,9 +95,9 @@ const initUploadForm = () => {
     document.querySelectorAll('.effects__preview').forEach((el)=> {
       el.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
     });
-    showmodal();
+    showModal ();
   });
-  cancelButton.addEventListener('click', hidemodal);
+  cancelButton.addEventListener('click', hideModal);
 };
 
-export { initUploadForm, setUploadFormSubmit, hidemodal, ondocumentKeyDown };
+export { initUploadForm, setUploadFormSubmit, hideModal, ondocumentKeyDown };

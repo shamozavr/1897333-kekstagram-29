@@ -13,7 +13,7 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextParent: 'img-upload__field-wrapper',
 });
 
-const cleanHashtags = (string) => string.toLowerCase().trim().split(' ');
+const cleanHashtags = (string) => string.toLowerCase().trim().split(' ').filter(Boolean);
 
 const isHashtagsValid = (value) => {
   if (!value) {
@@ -30,6 +30,8 @@ const checkHashtagsRepeat = (value) => Array.from(cleanHashtags(value)).length =
 
 const validatePristine = () => pristine.validate(); //Использует метод библиотеки validate()
 
+const resetPristine = () => pristine.reset(); //Использует метод библиотеки reset()
+
 //Вывод валидатора (исп. 5 параметров: поле, колбэк проверки, текст ошибки, приоритет, прерывание)
 const initValidation = () => {
   pristine.addValidator(textHashtags, isHashtagsValid, CHECK_HASHTAGS_VALIDITY, 1, true);
@@ -37,5 +39,5 @@ const initValidation = () => {
   pristine.addValidator(textHashtags, checkHashtagsRepeat, CHECK_DOUBLE_HASHTAGS, 1, true);
 };
 
-export { initValidation, validatePristine };
+export { initValidation, validatePristine, resetPristine };
 
